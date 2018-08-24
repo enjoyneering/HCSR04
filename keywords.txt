@@ -1,0 +1,29 @@
+#######################################
+# Syntax Coloring Map HC-SR04
+#######################################
+
+#######################################
+# Datatypes	(KEYWORD1)
+#######################################
+
+#######################################
+# Methods and Functions	(KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+getDistance	KEYWORD2
+
+#######################################
+# Instances	(KEYWORD2)
+#######################################
+
+HCSR04	KEYWORD2
+
+#######################################
+# Constants	(LITERAL1)
+#######################################
+
+HCSR04_DISABLE_INTERRUPTS	LITERAL1
+HCSR04_ECHO_CANCELLATION	LITERAL1
+
+HCSR04_OUT_OF_RANGE	LITERAL1
