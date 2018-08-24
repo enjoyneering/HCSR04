@@ -1,0 +1,179 @@
+/***************************************************************************************************/
+/*
+  This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y ultrasonic ranging sensor
+
+  Operating voltage:    5v
+  Operating current:    10..20mA
+  Working range:        4cm..250cm
+  Measuring angle:      15°
+  Operating frequency:  40kHz
+  Resolution:           0.3cm
+  Maximum polling rate: 20Hz
+
+  written by : enjoyneering79
+  sourse code: https://github.com/enjoyneering/
+
+
+  Frameworks & Libraries:
+  ATtiny Core           - https://github.com/SpenceKonde/ATTinyCore
+  ESP32 Core            - https://github.com/espressif/arduino-esp32
+  ESP8266 Core          - https://github.com/esp8266/Arduino
+  ESP8266 I2C lib fixed - https://github.com/enjoyneering/ESP8266-I2C-Driver
+  STM32 Core            - https://github.com/rogerclarkmelbourne/Arduino_STM32
+
+  GNU GPL license, all text above must be included in any redistribution, see link below for details:
+  - https://www.gnu.org/licenses/licenses.html
+*/
+/***************************************************************************************************/
+
+#include "HCSR04.h"
+
+
+/**************************************************************************/
+/*
+    Constructor
+*/
+/**************************************************************************/
+HCSR04::HCSR04(uint8_t triggerPin, uint8_t echoPin, int16_t temperature, uint16_t maxDistance)
+{
+  _triggerPin                 = triggerPin;
+  _echoPin                    = echoPin;
+  _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature));
+  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN));
+  _timeOutMax                 = calcEchoTimeout(maxDistance);
+}
+
+
+/**************************************************************************/
+/*
+    begin()
+
+    Initializes Trigger & Echo pins
+*/
+/**************************************************************************/
+void HCSR04::begin(void)
+{
+  pinMode(_triggerPin, OUTPUT);
+  digitalWrite(_triggerPin, LOW);
+
+  pinMode(_echoPin, INPUT);
+}
+
+/**************************************************************************/
+/*
+    getDistance()
+
+    Returns distance, in cm
+
+    NOTE:
+    - speed of sound depends on ambient temperature
+*/
+/**************************************************************************/
+float HCSR04::getDistance(void)
+{
+  float pulseLength = getEchoPulseLength();
+
+  if (pulseLength != HCSR04_OUT_OF_RANGE) return pulseLength / _oneCentimetreRoundTripTime;
+                                          return HCSR04_OUT_OF_RANGE;
+}
+
+/**************************************************************************/
+/*
+    calcSoundSpeed()
+
+    Calculates speed of sound, in cm/s
+
+    NOTE:
+    - speed of sound depends on ambient temperature
+      temp, °C   speed, m/sec
+       35         351.88
+       30         349.02
+       25         346.13
+       20         343.21
+       15         340.27
+       10         337.31
+       5          334.32
+       0          331.30
+      −5          328.25
+      −10         325.18
+      −15         322.07
+      −20         318.94
+      −25         315.77
+*/
+/**************************************************************************/
+uint16_t HCSR04::calcSoundSpeed(int16_t temperature)
+{
+  return (HCSR04_SOUND_SPEED_ZERO_C) + 60 * temperature;
+}
+
+/**************************************************************************/
+/*
+    calcOneCentimetreRoundTripTime()
+
+    Calculates how many μs are required for ultrasound sound to make a
+    round trip, 1cm forward + 1cm back = 2cm
+*/
+/**************************************************************************/
+float HCSR04::calcOneCentimetreRoundTripTime(uint16_t soundSpeed)
+{
+  return (float)2000000 / soundSpeed; //in μs
+}
+
+/**************************************************************************/
+/*
+    calcEchoTimeout()
+
+    Converts distance to time in μs, required for ultrasound sound to make
+    a trip
+*/
+/**************************************************************************/
+uint16_t HCSR04::calcEchoTimeout(uint16_t distance)
+{
+  if      (distance > HCSR04_RANGE_MAX) distance = HCSR04_RANGE_MAX;
+  else if (distance < HCSR04_RANGE_MIN) distance = HCSR04_RANGE_MIN;
+
+  return distance * (uint16_t)_oneCentimetreRoundTripTime; //convert cm to μs
+}
+
+/**************************************************************************/
+/*
+    getEchoPulseLength()
+
+    Returns interval of echo signal, in μs
+
+    NOTE:
+    - pulseIn() works on pulses from 2-3 microseconds to 3 minutes in length
+    - pulseIn() must be called at least a few dozen microseconds before the
+      start of the pulse
+    - pulseIn() returns 0 if no complete pulse was received within timeout
+    - next pulse can be transmitted after previous echo is faded away, 
+      recommend echo delay ~50ms
+    - after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm
+*/
+/**************************************************************************/
+uint16_t HCSR04::getEchoPulseLength(void)
+{
+  int16_t length = 0;
+
+  #ifdef HCSR04_DISABLE_INTERRUPTS
+  noInterrupts();                                                      //disable all interrupts
+  #endif
+
+  /* start measurement */
+  digitalWrite(_triggerPin, HIGH);
+  delayMicroseconds(10);                                               //length of triger pulse
+  digitalWrite(_triggerPin, LOW);                                      //300μs after trigger low module sends 8 ultrasound pulses at 40 kHz & measures echo
+
+  length = pulseIn(_echoPin, HIGH, _timeOutMax);                       //must be called at least a few dozen μs before expected pulse
+
+  #ifdef HCSR04_DISABLE_INTERRUPTS
+  interrupts();                                                        //re-enable all interrupts
+  #endif
+
+  #ifdef HCSR04_ECHO_CANCELLATION
+  delay(50);                                                           //wait until echo from previous measurement disappears
+  #endif
+
+  if (length == 0 || length < _timeOutMin) return HCSR04_OUT_OF_RANGE;
+                                           return length;
+}
