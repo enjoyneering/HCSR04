@@ -98,5 +98,5 @@ void loop()
     lcd.print(F("out of range"));
   }
 
-  delay(50);                                                         //wait 50msec or more, until echo from the previous measurement disappears
+  delay(50);                                 //wait 50msec or more, until echo from the previous measurement disappears
 }
