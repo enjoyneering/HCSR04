@@ -1,0 +1,18 @@
+{
+  "name":        "HCSR04",
+  "keywords":    "hc-sr04, hc-srf05, dyp-me007, blj-me007y, ultrasonic, ranging, distance",
+  "description": "HR-SR04 ultrasonic ranging sensor",
+  "authors":
+  {
+    "name":  "ejoyneering",
+    "email": "enjoyneering@protonmail.com"
+  },
+  "repository":
+  {
+    "type": "git",
+    "url":  "https://github.com/enjoyneering/HRSR04.git"
+  },
+  "version":    "1.0.0",
+  "frameworks": "arduino",
+  "platforms":  "*"
+}
