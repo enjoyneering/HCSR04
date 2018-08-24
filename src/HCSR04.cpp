@@ -38,9 +38,9 @@ HCSR04::HCSR04(uint8_t triggerPin, uint8_t echoPin, int16_t temperature, uint16_
 {
   _triggerPin                 = triggerPin;
   _echoPin                    = echoPin;
-  _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature));
-  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN));
-  _timeOutMax                 = calcEchoTimeout(maxDistance);
+  _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature)); //in μs
+  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN)) - 5;                     //in μs
+  _timeOutMax                 = calcEchoTimeout(maxDistance) + 5;                            //in μs
 }
 
 
