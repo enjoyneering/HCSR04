@@ -56,7 +56,7 @@ void loop()
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     lcd.print(distance, 1);
-    lcd.println(F("cm"));
+    lcd.println(F(" cm"));
   }
   else
   {
@@ -70,7 +70,7 @@ void loop()
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     lcd.print(distance, 1);
-    lcd.println(F("cm"));
+    lcd.println(F(" cm"));
   }
   else
   {
