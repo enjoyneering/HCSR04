@@ -103,6 +103,7 @@ void loop()
 
 
   distance = ultrasonicSensor.getMedianFilterDistance(); //pass 3 measurements through median filter, better result on moving obstacles
+  
   lcd.setCursor(3, 1);
   if (distance != HCSR04_OUT_OF_RANGE)
   {
