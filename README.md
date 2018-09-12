@@ -11,6 +11,6 @@ This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B
 
 Features:
 - Read distance from 4cm to 250mm
-- Compensates speed of sound according to the ambient temperature
+- Compensate speed of sound according to the ambient temperature
 - Pass distance thought median filter
-- Sets maximum distance to speed up measurement
+- Set maximum distance to speed up measurement
