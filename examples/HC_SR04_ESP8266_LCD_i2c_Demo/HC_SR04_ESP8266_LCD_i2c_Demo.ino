@@ -50,10 +50,14 @@ float distance = 0;
 /*
 HCSR04(trigger, echo, temperature, distance)
 
-trigger     - trigger pin
-echo        - echo pin
+trigger     - trigger pin*
+echo        - echo pin*
 temperature - ambient temperature, in C
 distance    - maximun measuring distance, in cm
+
+*if GPIO2/D4 or GPIO0/D3 used, apply an external
+ 25kOhm pullup-down resistor, without it the reset
+ button will be unresponsive
 */
 HCSR04            ultrasonicSensor(D4, D3, 20, 300);
 LiquidCrystal_I2C lcd(PCF8574_ADDR_A21_A11_A01, 4, 5, 6, 16, 11, 12, 13, 14, POSITIVE);
@@ -82,15 +86,32 @@ void setup()
 
   /* prints static text */
   lcd.setCursor(0, 0);
-  lcd.print(F("D:"));
+  lcd.print(F("D :"));
+
+  lcd.setCursor(0, 1);
+  lcd.print(F("Df:"));
 }
 
 void loop()
 {
   distance = ultrasonicSensor.getDistance();
 
-  lcd.setCursor(2, 0);
+  lcd.setCursor(3, 0);
+  if (distance != HCSR04_OUT_OF_RANGE)
+  {
+    lcd.print(distance, 1);
+    lcd.print(F(" cm         "));
+  }
+  else
+  {
+    lcd.print(F("out of range"));
+  }
+  delay(50);                                             //wait 50msec or more, until echo from previous measurement disappears
 
+
+  distance = ultrasonicSensor.getMedianFilterDistance(); //pass three distance measurement through median filter, better result on moving obstacles
+
+  lcd.setCursor(3, 1);
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     lcd.print(distance, 1);
@@ -101,5 +122,5 @@ void loop()
     lcd.print(F("out of range"));
   }
 
-  delay(50);                                 //wait 50msec or more, until echo from the previous measurement disappears
+  delay(250);                                            //screen refresh rate
 }
