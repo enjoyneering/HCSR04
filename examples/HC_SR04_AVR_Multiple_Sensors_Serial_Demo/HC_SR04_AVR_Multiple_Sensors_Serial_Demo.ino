@@ -65,8 +65,7 @@ void loop()
   delay(50);                                                //wait 50msec or more, until echo from previous measurement disappears
 
 
-  distance = ultrasonicSensor_02.getMedianFilterDistance(); //pass three distance measurement through median filter, better result on moving obstacles
-
+  distance = ultrasonicSensor_02.getMedianFilterDistance(); //pass 3 measurements through median filter, better result on moving obstacles
   Serial.print(F("Sensor_02: "));
   if (distance != HCSR04_OUT_OF_RANGE)
   {
