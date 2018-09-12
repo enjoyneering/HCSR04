@@ -33,10 +33,14 @@ float distance = 0;
 /*
 HCSR04(trigger, echo, temperature, distance)
 
-trigger     - trigger pin
-echo        - echo pin
+trigger     - trigger pin*
+echo        - echo pin*
 temperature - ambient temperature, in C
 distance    - maximun measuring distance, in cm
+
+*if GPIO2/D4 or GPIO0/D3 used, apply an external
+ 25kOhm pullup-down resistor, without it the reset
+ button will be unresponsive
 */
 HCSR04 ultrasonicSensor(D4, D3, 20, 300);
 
@@ -57,12 +61,26 @@ void loop()
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     Serial.print(distance, 1);
-    Serial.println(F(" cm"));                //(F()) saves string to flash & keeps dynamic memory free
+    Serial.println(F(" cm"));                            //(F()) saves string to flash & keeps dynamic memory free
   }
   else
   {
     Serial.println(F("out of range"));
   }
+  delay(50);                                             //wait 50msec or more, until echo from previous measurement disappears
 
-  delay(625);                                //wait 50msec or more, until echo from the previous measurement disappears
+
+  distance = ultrasonicSensor.getMedianFilterDistance(); //pass three distance measurement through median filter, better result on moving obstacles
+
+  if (distance != HCSR04_OUT_OF_RANGE)
+  {
+    Serial.print(distance, 1);
+    Serial.println(F(" cm, filtered"));
+  }
+  else
+  {
+    Serial.println(F("out of range, filtered"));
+  }
+
+  delay(250);                                            //serial refresh rate
 }
