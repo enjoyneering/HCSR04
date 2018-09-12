@@ -66,6 +66,7 @@ void loop()
 
 
   distance = ultrasonicSensor_02.getMedianFilterDistance(); //pass 3 measurements through median filter, better result on moving obstacles
+  
   Serial.print(F("Sensor_02: "));
   if (distance != HCSR04_OUT_OF_RANGE)
   {
