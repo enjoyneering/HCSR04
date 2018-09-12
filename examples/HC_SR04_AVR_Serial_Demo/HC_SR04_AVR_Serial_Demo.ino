@@ -53,12 +53,26 @@ void loop()
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     Serial.print(distance, 1);
-    Serial.println(F(" cm"));                //(F()) saves string to flash & keeps dynamic memory free
+    Serial.println(F(" cm"));                            //(F()) saves string to flash & keeps dynamic memory free
   }
   else
   {
     Serial.println(F("out of range"));
   }
+  delay(50);                                             //wait 50msec or more, until echo from previous measurement disappears
 
-  delay(625);                               //wait 50msec or more, until echo from the previous measurement disappears
+
+  distance = ultrasonicSensor.getMedianFilterDistance(); //pass three distance measurement through median filter, better result on moving obstacles
+
+  if (distance != HCSR04_OUT_OF_RANGE)
+  {
+    Serial.print(distance, 1);
+    Serial.println(F(" cm, filtered"));
+  }
+  else
+  {
+    Serial.println(F("out of range, filtered"));
+  }
+
+  delay(250);                                            //serial refresh rate
 }
