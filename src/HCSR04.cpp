@@ -79,6 +79,47 @@ float HCSR04::getDistance(void)
 
 /**************************************************************************/
 /*
+    getMedianFilterDistance()
+
+    Returns median distance after 3 measurements, in cm
+
+    NOTE:
+    - see Normal/Gauss distribution for more details
+*/
+/**************************************************************************/
+float HCSR04::getMedianFilterDistance(void)
+{
+  uint16_t data[3] = {0, 0, 0};
+  uint16_t middle  = 0;
+  
+
+  for (int8_t i = 0; i < 3; i++)
+  {
+    data[i] = getDistance() * 100;                       //convert float to integer to speed up, reduce code size
+
+    #ifndef HCSR04_ECHO_CANCELLATION
+    delay(50);                                           //wait until echo from previous measurement disappears
+    #endif
+  }
+
+  if ((data[0] <= data[1]) && (data[0] <= data[2]))
+  {
+    middle = (data[1] <= data[2]) ? data[1] : data[2];
+  }
+  else if ((data[1] <= data[0]) && (data[1] <= data[2]))
+  {
+    middle = (data[0] <= data[2]) ? data[0] : data[2];
+  }
+  else
+  {
+    middle = (data[0] <= data[1]) ? data[0] : data[1];
+  }
+
+  return (float)middle / 100;                            //conver back to float, with 2 digits after dot
+}
+
+/**************************************************************************/
+/*
     calcSoundSpeed()
 
     Calculates speed of sound, in cm/s
@@ -161,10 +202,10 @@ uint16_t HCSR04::getEchoPulseLength(void)
 
   /* start measurement */
   digitalWrite(_triggerPin, HIGH);
-  delayMicroseconds(10);                                               //length of triger pulse
-  digitalWrite(_triggerPin, LOW);                                      //300μs after trigger low module sends 8 ultrasound pulses at 40 kHz & measures echo
+  delayMicroseconds(10);                                               //length of triger pulse, 100μs maximum
+  digitalWrite(_triggerPin, LOW);                                      //300..500μs after trigger low, module during next 200μs sends 8 pulses at 40 kHz & measures echo
 
-  length = pulseIn(_echoPin, HIGH, _timeOutMax);                       //must be called at least a few dozen μs before expected pulse
+  length = pulseIn(_echoPin, HIGH, _timeOutMax);                       //must be called at least a few dozen μs before expected pulse, avarage tHOLLDOFF=700μs
 
   #ifdef HCSR04_DISABLE_INTERRUPTS
   interrupts();                                                        //re-enable all interrupts
