@@ -109,8 +109,8 @@ void loop()
   delay(50);                                             //wait 50msec or more, until echo from previous measurement disappears
 
 
-  distance = ultrasonicSensor.getMedianFilterDistance(); //pass three distance measurement through median filter, better result on moving obstacles
-
+  distance = ultrasonicSensor.getMedianFilterDistance(); //pass 3 measurements through median filter, better result on moving obstacles
+  
   lcd.setCursor(3, 1);
   if (distance != HCSR04_OUT_OF_RANGE)
   {
