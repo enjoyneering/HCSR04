@@ -79,15 +79,32 @@ void setup()
 
   /* prints static text */
   lcd.setCursor(0, 0);
-  lcd.print(F("D:"));
+  lcd.print(F("D :"));
+
+  lcd.setCursor(0, 1);
+  lcd.print(F("Df:"));
 }
 
 void loop()
 {
   distance = ultrasonicSensor.getDistance();
 
-  lcd.setCursor(2, 0);
+  lcd.setCursor(3, 0);
+  if (distance != HCSR04_OUT_OF_RANGE)
+  {
+    lcd.print(distance, 1);
+    lcd.print(F(" cm         "));
+  }
+  else
+  {
+    lcd.print(F("out of range"));
+  }
+  delay(50);                                             //wait 50msec or more, until echo from previous measurement disappears
 
+
+  distance = ultrasonicSensor.getMedianFilterDistance(); //pass three distance measurement through median filter, better result on moving obstacles
+
+  lcd.setCursor(3, 1);
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     lcd.print(distance, 1);
@@ -98,5 +115,5 @@ void loop()
     lcd.print(F("out of range"));
   }
 
-  delay(50);                                 //wait 50msec or more, until echo from the previous measurement disappears
+  delay(250);                                           //screen refresh rate
 }
