@@ -52,7 +52,7 @@ So you cannot #define something in a sketch and have it picked up in the library
 #define HCSR04_RANGE_MIN          4     //in cm, after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm, to be safe use min distace > 3.5cm
 #define HCSR04_RANGE_MAX          500   //in cm
 
-#define HCSR04_OUT_OF_RANGE       38000 //sensor returns 38msec echo pulse if out of range
+#define HCSR04_OUT_OF_RANGE       38    //sensor returns 38msec echo pulse if out of range
 
 class HCSR04
 {
@@ -61,6 +61,7 @@ class HCSR04
 
   void     begin(void);
   float    getDistance(void);
+  float    getMedianFilterDistance(void);
 
  private:
   uint8_t  _triggerPin;
