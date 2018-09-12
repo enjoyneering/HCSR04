@@ -115,5 +115,5 @@ void loop()
     lcd.print(F("out of range"));
   }
 
-  delay(250);                                           //screen refresh rate
+  delay(250);                                            //screen refresh rate
 }
