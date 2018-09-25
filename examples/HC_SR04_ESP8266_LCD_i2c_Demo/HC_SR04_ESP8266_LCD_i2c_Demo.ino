@@ -55,9 +55,8 @@ echo        - echo pin*
 temperature - ambient temperature, in C
 distance    - maximun measuring distance, in cm
 
-*if GPIO2/D4 or GPIO0/D3 used, apply an external
- 25kOhm pullup-down resistor, without it the reset
- button will be unresponsive
+*if GPIO2/D4 or GPIO0/D3 is used for trigger or echo pin, apply an external
+ 25kOhm pullup-down resistor otherwise reset & reset button may not work
 */
 HCSR04            ultrasonicSensor(D4, D3, 20, 300);
 LiquidCrystal_I2C lcd(PCF8574_ADDR_A21_A11_A01, 4, 5, 6, 16, 11, 12, 13, 14, POSITIVE);
