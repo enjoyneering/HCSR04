@@ -14,6 +14,15 @@
   sourse code: https://github.com/enjoyneering/
 
 
+  Board:                                     Level
+  Uno, Mini, Pro, ATmega168, ATmega328.....  5v
+  Mega, Mega2560, ATmega1280, ATmega2560...  5v
+  Due, SAM3X8E.............................  3.3v
+  Leonardo, ProMicro, ATmega32U4...........  5v
+  Blue Pill, STM32F103xxxx boards..........  3v
+  NodeMCU 1.0, WeMos D1 Mini...............  3v/5v
+  ESP32....................................  3v
+  
   Frameworks & Libraries:
   ATtiny Core           - https://github.com/SpenceKonde/ATTinyCore
   ESP32 Core            - https://github.com/espressif/arduino-esp32
@@ -34,25 +43,25 @@ So you cannot #define something in a sketch and have it picked up in the library
 #ifndef HCSR04_h
 #define HCSR04_h
 
-#if defined(ARDUINO) && ARDUINO >= 100 //arduino core v1.0 or later
+#if defined(ARDUINO) && ((ARDUINO) >= 100) //arduino core v1.0 or later
 #include <Arduino.h>
 #else
 #include <WProgram.h>
 #endif
 
 #if defined(__AVR__)
-#include <avr/pgmspace.h>              //use for PROGMEM Arduino AVR
+#include <avr/pgmspace.h>                  //use for PROGMEM Arduino AVR
 #elif defined(ESP8266)
-#include <pgmspace.h>                  //use for PROGMEM Arduino ESP8266
+#include <pgmspace.h>                      //use for PROGMEM Arduino ESP8266
 #elif defined(_VARIANT_ARDUINO_STM32_)
-#include <avr/pgmspace.h>              //use for PROGMEM Arduino STM32
+#include <avr/pgmspace.h>                  //use for PROGMEM Arduino STM32
 #endif
 
-#define HCSR04_SOUND_SPEED_ZERO_C 33130 //in cm/s, speed of sound @ 0°C
-#define HCSR04_RANGE_MIN          4     //in cm, after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm, to be safe use min distace > 3.5cm
-#define HCSR04_RANGE_MAX          500   //in cm
+#define HCSR04_SOUND_SPEED_ZERO_C 33130    //in cm/s, speed of sound @ 0°C
+#define HCSR04_RANGE_MIN          4        //in cm, after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm, to be safe use min distace > 3.5cm
+#define HCSR04_RANGE_MAX          500      //in cm
 
-#define HCSR04_OUT_OF_RANGE       38    //sensor returns 38msec echo pulse if out of range
+#define HCSR04_OUT_OF_RANGE       38       //sensor returns 38msec echo pulse if out of range
 
 class HCSR04
 {
