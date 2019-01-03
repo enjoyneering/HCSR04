@@ -37,8 +37,10 @@
 
 /* 
 The arduino tool chain includes library headers before it includes your sketch.
-So you cannot #define something in a sketch and have it picked up in the library.
+So you cannot #define something in a sketch & have it picked up in the library.
 */
+//#define HCSR04_DISABLE_INTERRUPTS
+//#define HCSR04_ECHO_CANCELLATION
 
 #ifndef HCSR04_h
 #define HCSR04_h
@@ -61,7 +63,7 @@ So you cannot #define something in a sketch and have it picked up in the library
 #define HCSR04_RANGE_MIN          4        //in cm, after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm, to be safe use min distace > 3.5cm
 #define HCSR04_RANGE_MAX          500      //in cm
 
-#define HCSR04_OUT_OF_RANGE       38       //sensor returns 38msec echo pulse if out of range
+#define HCSR04_OUT_OF_RANGE       38000    //sensor returns 38000μs echo pulse, if out of range
 
 class HCSR04
 {
@@ -79,10 +81,10 @@ class HCSR04
   uint8_t  _timeOutMin;
   uint16_t _timeOutMax;
 
-  uint16_t calcSoundSpeed(int16_t temperature);
-  float    calcOneCentimetreRoundTripTime(uint16_t soundSpeed);
-  uint16_t calcEchoTimeout(uint16_t distance);
-  uint16_t getEchoPulseLength(void);
+         uint16_t calcSoundSpeed(int16_t temperature);
+         float    calcOneCentimetreRoundTripTime(uint16_t soundSpeed);
+         uint16_t calcEchoTimeout(uint16_t distance);
+  inline uint16_t getEchoPulseLength(void);
 };
 
 #endif
