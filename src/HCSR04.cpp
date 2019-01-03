@@ -22,7 +22,7 @@
   Blue Pill, STM32F103xxxx boards..........  3v
   NodeMCU 1.0, WeMos D1 Mini...............  3v/5v
   ESP32....................................  3v
-  
+
   Frameworks & Libraries:
   ATtiny Core           - https://github.com/SpenceKonde/ATTinyCore
   ESP32 Core            - https://github.com/espressif/arduino-esp32
@@ -208,6 +208,9 @@ uint16_t HCSR04::getEchoPulseLength(void)
   #ifdef HCSR04_DISABLE_INTERRUPTS
   noInterrupts();                                                      //disable all interrupts
   #endif
+
+  digitalWrite(_triggerPin, LOW);                                      //should be already low, but once in a blue moon...
+  delayMicroseconds(2);
 
   /* start measurement */
   digitalWrite(_triggerPin, HIGH);
