@@ -48,8 +48,10 @@ HCSR04::HCSR04(uint8_t triggerPin, uint8_t echoPin, int16_t temperature, uint16_
   _triggerPin                 = triggerPin;
   _echoPin                    = echoPin;
   _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature)); //in μs
-  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN)) - 5;                     //in μs
-  _timeOutMax                 = calcEchoTimeout(maxDistance) + 5;                            //in μs
+  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN)) + 5;                     //in μs
+  _timeOutMax                 = calcEchoTimeout(maxDistance) - 5;                            //in μs
+
+  if (_timeOutMax > HCSR04_OUT_OF_RANGE) _timeOutMax = (HCSR04_OUT_OF_RANGE) + 5;            //sensor returns 38000μs echo pulse, if out of range
 }
 
 
@@ -205,12 +207,12 @@ uint16_t HCSR04::getEchoPulseLength(void)
 {
   int16_t length = 0;
 
+  digitalWrite(_triggerPin, LOW);                                      //should be already low, but once in a blue moon...
+  delayMicroseconds(2);
+
   #ifdef HCSR04_DISABLE_INTERRUPTS
   noInterrupts();                                                      //disable all interrupts
   #endif
-
-  digitalWrite(_triggerPin, LOW);                                      //should be already low, but once in a blue moon...
-  delayMicroseconds(2);
 
   /* start measurement */
   digitalWrite(_triggerPin, HIGH);
