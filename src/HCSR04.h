@@ -62,8 +62,9 @@ So you can't #define something in a sketch & have it picked up in the library.
 #define HCSR04_SOUND_SPEED_ZERO_C 33130    //in cm/s, speed of sound @ 0°C
 #define HCSR04_RANGE_MIN          4        //in cm, after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm, to be safe use min distace > 3.5cm
 #define HCSR04_RANGE_MAX          500      //in cm
+#define HCSR04_ECHO_DELAY         45       //delay before next measurement, 30ms..60ms
 
-#define HCSR04_OUT_OF_RANGE       38000    //sensor returns 38000μs echo pulse, if out of range
+#define HCSR04_OUT_OF_RANGE       38000    //sensor returns 30000μs..38000μs echo pulse, if out of range
 
 class HCSR04
 {
