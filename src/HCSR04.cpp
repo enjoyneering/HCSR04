@@ -207,9 +207,6 @@ uint16_t HCSR04::getEchoPulseLength(void)
 {
   int16_t length = 0;
 
-  digitalWrite(_triggerPin, LOW);                                      //should be already low, but once in a blue moon...
-  delayMicroseconds(2);
-
   #ifdef HCSR04_DISABLE_INTERRUPTS
   noInterrupts();                                                      //disable all interrupts
   #endif
