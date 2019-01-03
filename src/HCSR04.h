@@ -36,7 +36,7 @@
 /***************************************************************************************************/
 
 /* 
-The arduino tool chain includes library headers before it includes your sketch.
+The arduino toolchain includes library headers before it includes your sketch.
 So you cannot #define something in a sketch & have it picked up in the library.
 */
 //#define HCSR04_DISABLE_INTERRUPTS
