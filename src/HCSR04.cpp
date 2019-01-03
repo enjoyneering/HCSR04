@@ -208,24 +208,24 @@ uint16_t HCSR04::getEchoPulseLength(void)
   int16_t length = 0;
 
   #ifdef HCSR04_DISABLE_INTERRUPTS
-  noInterrupts();                                                      //disable all interrupts
+  noInterrupts();                                                         //disable all interrupts
   #endif
 
   /* start measurement */
   digitalWrite(_triggerPin, HIGH);
-  delayMicroseconds(10);                                               //length of triger pulse, 100μs maximum
-  digitalWrite(_triggerPin, LOW);                                      //300..500μs after trigger low, module during next 200μs sends 8 pulses at 40 kHz & measures echo
+  delayMicroseconds(10);                                                  //length of triger pulse, 100μs maximum
+  digitalWrite(_triggerPin, LOW);                                         //300..500μs after trigger low, module during next 200μs sends 8 pulses at 40 kHz & measures echo
 
-  length = pulseIn(_echoPin, HIGH, _timeOutMax);                       //must be called at least a few dozen μs before expected pulse, avarage tHOLLDOFF=700μs
+  length = pulseIn(_echoPin, HIGH, _timeOutMax);                          //must be called at least a few dozen μs before expected pulse, avarage tHOLLDOFF=700μs
 
   #ifdef HCSR04_DISABLE_INTERRUPTS
-  interrupts();                                                        //re-enable all interrupts
+  interrupts();                                                           //re-enable all interrupts
   #endif
 
   #ifdef HCSR04_ECHO_CANCELLATION
-  delay(50);                                                           //wait until echo from previous measurement disappears
+  delay(50);                                                              //wait until echo from previous measurement disappears
   #endif
 
-  if (length == 0 || length < _timeOutMin) return HCSR04_OUT_OF_RANGE;
-                                           return length;
+  if ((length == 0) || (length < _timeOutMin) || (length >= _timeOutMax)) return HCSR04_OUT_OF_RANGE;
+                                                                          return length;
 }
