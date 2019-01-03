@@ -35,15 +35,15 @@
 */
 /***************************************************************************************************/
 
+#ifndef HCSR04_h
+#define HCSR04_h
+
 /* 
 The arduino toolchain includes library headers before it includes your sketch.
-So you cannot #define something in a sketch & have it picked up in the library.
+So you can't #define something in a sketch & have it picked up in the library.
 */
 //#define HCSR04_DISABLE_INTERRUPTS
 //#define HCSR04_ECHO_CANCELLATION
-
-#ifndef HCSR04_h
-#define HCSR04_h
 
 #if defined(ARDUINO) && ((ARDUINO) >= 100) //arduino core v1.0 or later
 #include <Arduino.h>
