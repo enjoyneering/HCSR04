@@ -104,7 +104,6 @@ float HCSR04::getMedianFilterDistance(void)
   uint16_t data[3] = {0, 0, 0};
   uint16_t middle  = 0;
   
-
   for (int8_t i = 0; i < 3; i++)
   {
     length = getDistance();
