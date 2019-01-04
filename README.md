@@ -1,3 +1,5 @@
+[![license-badge][]][license]
+
 # HR-SR04
 This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B5B ultrasonic ranging sensor
 
@@ -14,3 +16,12 @@ Features:
 - Compensate speed of sound according to the ambient temperature
 - Pass distance thought median filter
 - Set maximum distance to speed up measurement
+
+Tested on:
+
+- Arduino AVR
+- Arduino ESP8266
+- Arduino STM32
+
+[license]: https://choosealicense.com/licenses/gpl-3.0/
+[license-badgehttps]: https://img.shields.io/aur/license/yaourt.svg
