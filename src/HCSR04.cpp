@@ -231,6 +231,6 @@ uint16_t HCSR04::getEchoPulseLength(void)
   delay(HCSR04_ECHO_DELAY);                      //wait until echo from previous measurement disappears
   #endif
 
-  if ((length == 0) || (length <= _timeOutMin) || (length >= HCSR04_OUT_OF_RANGE)) return HCSR04_OUT_OF_RANGE;
-                                                                                   return length;
+  if ((length == 0) || (length <= _timeOutMin) || (length >= _timeOutMax)) return HCSR04_OUT_OF_RANGE;
+                                                                           return length;
 }
