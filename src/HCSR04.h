@@ -52,11 +52,11 @@ So you can't #define something in a sketch & have it picked up in the library.
 #endif
 
 #if defined(__AVR__)
-#include <avr/pgmspace.h>                  //use for PROGMEM Arduino AVR
+#include <avr/pgmspace.h>                  //for Arduino AVR PROGMEM support
 #elif defined(ESP8266)
-#include <pgmspace.h>                      //use for PROGMEM Arduino ESP8266
+#include <pgmspace.h>                      //for Arduino ESP8266 PROGMEM support
 #elif defined(_VARIANT_ARDUINO_STM32_)
-#include <avr/pgmspace.h>                  //use for PROGMEM Arduino STM32
+#include <avr/pgmspace.h>                  //for Arduino STM32 PROGMEM support
 #endif
 
 #define HCSR04_SOUND_SPEED_ZERO_C 33130    //in cm/s, speed of sound @ 0°C
