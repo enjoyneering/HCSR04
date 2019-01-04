@@ -40,7 +40,7 @@
 
 /* 
 The arduino toolchain includes library headers before it includes your sketch.
-So you can't #define something in a sketch & have it picked up in the library.
+Unfortunately, you cannot #define something in a sketch & get it in the library.
 */
 //#define HCSR04_DISABLE_INTERRUPTS
 //#define HCSR04_ECHO_CANCELLATION
@@ -59,12 +59,13 @@ So you can't #define something in a sketch & have it picked up in the library.
 #include <avr/pgmspace.h>                  //for Arduino STM32 PROGMEM support
 #endif
 
-#define HCSR04_SOUND_SPEED_ZERO_C 33130    //in cm/s, speed of sound @ 0°C
-#define HCSR04_RANGE_MIN          4        //in cm, after ~1.5cm sensor readings jump in the range ~2.5cm - 3.5cm, to be safe use min distace > 3.5cm
+#define HCSR04_RANGE_MIN          4        //in cm, after 1.5cm readings jump in the range 2.5cm - 3.5cm & to avoid it use min distance > 3.5cm
 #define HCSR04_RANGE_MAX          500      //in cm
-#define HCSR04_ECHO_DELAY         45       //delay before next measurement, 30ms..60ms
+#define HCSR04_ECHO_DELAY         50       //delay before next measurement, 30ms..60ms
 
+#define HCSR04_SOUND_SPEED_ZERO_C 33130    //in cm/s, speed of sound @ 0°C
 #define HCSR04_OUT_OF_RANGE       38000    //sensor returns 30000μs..38000μs echo pulse, if out of range
+
 
 class HCSR04
 {
@@ -86,6 +87,7 @@ class HCSR04
          float    calcOneCentimetreRoundTripTime(uint16_t soundSpeed);
          uint16_t calcEchoTimeout(uint16_t distance);
   inline uint16_t getEchoPulseLength(void);
+  inline float    calcDistance(uint16_t pulseLength);
 };
 
 #endif
