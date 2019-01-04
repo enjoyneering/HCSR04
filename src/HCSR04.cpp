@@ -48,7 +48,7 @@ HCSR04::HCSR04(uint8_t triggerPin, uint8_t echoPin, int16_t temperature, uint16_
   _triggerPin                 = triggerPin;
   _echoPin                    = echoPin;
   _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature)); //in μs
-  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN)) + 25;                    //in μs, where 25μs is ~0.3cm
+  _timeOutMin                 = calcEchoTimeout((HCSR04_RANGE_MIN)) - 25;                    //in μs, 25μs is ~0.3cm
   _timeOutMax                 = calcEchoTimeout(maxDistance) + 25;                           //in μs
 
   if (_timeOutMax > HCSR04_OUT_OF_RANGE) _timeOutMax = (HCSR04_OUT_OF_RANGE) + 25;           //sensor returns 30000μs..38000μs echo pulse, if out of range
@@ -100,16 +100,20 @@ float HCSR04::getDistance(void)
 /**************************************************************************/
 float HCSR04::getMedianFilterDistance(void)
 {
+  float    length  = 0;
   uint16_t data[3] = {0, 0, 0};
   uint16_t middle  = 0;
   
 
   for (int8_t i = 0; i < 3; i++)
   {
-    data[i] = getDistance() * 100;                       //convert float to integer to speed up, reduce code size
+    length = getDistance();
+
+    if  (length == HCSR04_OUT_OF_RANGE) data[i] = HCSR04_OUT_OF_RANGE;
+    else                                data[i] = length * 100;        //convert float to integer to speed up, reduce code size
 
     #ifndef HCSR04_ECHO_CANCELLATION
-    delay(HCSR04_ECHO_DELAY);                            //wait until echo from previous measurement disappears
+    delay(HCSR04_ECHO_DELAY);                                          //wait until echo from previous measurement disappears
     #endif
   }
 
@@ -126,7 +130,8 @@ float HCSR04::getMedianFilterDistance(void)
     middle = (data[0] <= data[1]) ? data[0] : data[1];
   }
 
-  return (float)middle / 100;                            //conver back to float, with 2 digits after dot
+  if (middle == HCSR04_OUT_OF_RANGE) return HCSR04_OUT_OF_RANGE;
+                                     return (float)middle / 100;       //conver back to float, with 2 digits after dot
 }
 
 /**************************************************************************/
@@ -184,7 +189,7 @@ uint16_t HCSR04::calcEchoTimeout(uint16_t distance)
   if      (distance > HCSR04_RANGE_MAX) distance = HCSR04_RANGE_MAX;
   else if (distance < HCSR04_RANGE_MIN) distance = HCSR04_RANGE_MIN;
 
-  return distance * (uint16_t)_oneCentimetreRoundTripTime; //convert cm to μs
+  return distance * (uint16_t)_oneCentimetreRoundTripTime;           //convert cm to μs
 }
 
 /**************************************************************************/
@@ -205,27 +210,27 @@ uint16_t HCSR04::calcEchoTimeout(uint16_t distance)
 /**************************************************************************/
 uint16_t HCSR04::getEchoPulseLength(void)
 {
-  uint16_t length = 0;                                                     //in μs
+  uint16_t length = 0;                           //in μs
 
   #ifdef HCSR04_DISABLE_INTERRUPTS
-  noInterrupts();                                                          //disable all interrupts
+  noInterrupts();                                //disable all interrupts
   #endif
 
   /* start measurement */
   digitalWrite(_triggerPin, HIGH);
-  delayMicroseconds(10);                                                   //length of triger pulse, 100μs maximum
-  digitalWrite(_triggerPin, LOW);                                          //300..500μs after trigger low, module during next 200μs sends 8 pulses at 40 kHz & measures echo
+  delayMicroseconds(10);                         //length of triger pulse, 100μs maximum
+  digitalWrite(_triggerPin, LOW);                //300..500μs after trigger low, module during next 200μs sends 8 pulses at 40 kHz & measures echo
 
-  length = pulseIn(_echoPin, HIGH, _timeOutMax);                           //must be called at least a few dozen μs before expected pulse, avarage tHOLLDOFF=700μs
+  length = pulseIn(_echoPin, HIGH, _timeOutMax); //must be called at least a few dozen μs before expected pulse, avarage tHOLLDOFF=700μs
 
   #ifdef HCSR04_DISABLE_INTERRUPTS
-  interrupts();                                                            //re-enable all interrupts
+  interrupts();                                  //re-enable all interrupts
   #endif
 
   #ifdef HCSR04_ECHO_CANCELLATION
-  delay(HCSR04_ECHO_DELAY);                                                //wait until echo from previous measurement disappears
+  delay(HCSR04_ECHO_DELAY);                      //wait until echo from previous measurement disappears
   #endif
 
-  if ((length == 0) || (length <= _timeOutMin) || (length >= _timeOutMax)) return HCSR04_OUT_OF_RANGE;
-                                                                           return length;
+  if ((length == 0) || (length <= _timeOutMin) || (length >= HCSR04_OUT_OF_RANGE)) return HCSR04_OUT_OF_RANGE;
+                                                                                   return length;
 }
