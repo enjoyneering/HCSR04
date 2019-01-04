@@ -109,8 +109,8 @@ float HCSR04::getMedianFilterDistance(void)
   {
     length = getDistance();
 
-    if  (length == HCSR04_OUT_OF_RANGE) data[i] = HCSR04_OUT_OF_RANGE;
-    else                                data[i] = length * 100;        //convert float to integer to speed up, reduce code size
+    if  (length != HCSR04_OUT_OF_RANGE) data[i] = length * 100;        //convert float to integer to speed up, reduce code size
+    else                                data[i] = HCSR04_OUT_OF_RANGE;
 
     #ifndef HCSR04_ECHO_CANCELLATION
     delay(HCSR04_ECHO_DELAY);                                          //wait until echo from previous measurement disappears
