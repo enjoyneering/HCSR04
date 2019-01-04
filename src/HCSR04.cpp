@@ -129,8 +129,8 @@ float HCSR04::getMedianFilterDistance(void)
     middle = (data[0] <= data[1]) ? data[0] : data[1];
   }
 
-  if (middle == HCSR04_OUT_OF_RANGE) return HCSR04_OUT_OF_RANGE;
-                                     return (float)middle / 100;       //conver back to float, with 2 digits after dot
+  if (middle != HCSR04_OUT_OF_RANGE) return (float)middle / 100;       //conver back to float, with 2 digits after dot
+                                     return HCSR04_OUT_OF_RANGE;
 }
 
 /**************************************************************************/
