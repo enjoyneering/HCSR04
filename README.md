@@ -1,6 +1,6 @@
 [![license-badge][]][license]
 
-# HR-SR04
+# HС-SR04
 This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B5B ultrasonic ranging sensor
 
 - Operating voltage:    5v
