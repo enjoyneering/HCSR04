@@ -12,7 +12,7 @@ This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B
 - Maximum polling rate: 20Hz
 
 Features:
-- Read distance from 4cm to 250mm
+- Read distance from 4cm to 250mm**
 - Compensate speed of sound according to the ambient temperature
 - Pass distance thought median filter
 - Set maximum distance to speed up measurement
@@ -22,6 +22,8 @@ Tested on:
 - Arduino AVR
 - Arduino ESP8266
 - Arduino STM32
+
+** Sensor returns 38000 if OUT OF RANGE
 
 [license]:       https://choosealicense.com/licenses/gpl-3.0/
 [license-badge]: https://img.shields.io/aur/license/yaourt.svg
