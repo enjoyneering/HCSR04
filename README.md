@@ -1,4 +1,4 @@
-[![license-badge][]][license]
+[![license-badge][]][license] [version]
 
 # HС-SR04
 This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B5B ultrasonic ranging sensor
@@ -25,3 +25,4 @@ Tested on:
 
 [license]:       https://choosealicense.com/licenses/gpl-3.0/
 [license-badge]: https://img.shields.io/aur/license/yaourt.svg
+[version]:       https://img.shields.io/badge/Version-1.2.0-green.svg?style=plastic
