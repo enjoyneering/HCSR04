@@ -25,4 +25,4 @@ Tested on:
 
 [license]:       https://choosealicense.com/licenses/gpl-3.0/
 [license-badge]: https://img.shields.io/aur/license/yaourt.svg
-[version]:       https://img.shields.io/badge/Version-1.2.0-green.svg?style=plastic
+[version]:       https://img.shields.io/badge/Version-1.2.0-green.svg
