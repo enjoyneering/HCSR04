@@ -28,3 +28,5 @@ Tested on:
 [license]:       https://choosealicense.com/licenses/gpl-3.0/
 [license-badge]: https://img.shields.io/aur/license/yaourt.svg
 [version]:       https://img.shields.io/badge/Version-1.2.0-green.svg
+[stars]:         https://img.shields.io/github/stars/enjoyneering/HCSR04.svg
+[stargazers]:    https://github.com/enjoyneering/HCSR04/stargazers
