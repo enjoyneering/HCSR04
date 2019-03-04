@@ -1,7 +1,7 @@
 [![license-badge][]][license] ![version] [![stars][]][stargazers]
 
 # HС-SR04
-This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B5B, US-100, JSN-SR04T ultrasonic ranging sensor
+This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B5B, US-100, JSN-SR04T(PWM output mode) ultrasonic ranging sensor
 
 - Operating voltage:    5v
 - Operating current:    10..20mA
