@@ -34,8 +34,3 @@ Tested on:
 [count]:         http://hits.dwyl.io/enjoyneering/HCSR04/badges
 [github-issues]: https://img.shields.io/github/issues/enjoyneering/HCSR04.svg
 [issues]:        https://github.com/enjoyneering/HCSR04/issues/
-
-[total-downloads]: https://img.shields.io/packagecontrol/dt/enjoyneering/HCSR04.svg
-[downloads]:       https://github.com/enjoyneering/HCSR04
-
-[![total-downloads][]][downloads]
