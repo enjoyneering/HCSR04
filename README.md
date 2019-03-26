@@ -36,6 +36,6 @@ Tested on:
 [issues]:        https://github.com/enjoyneering/HCSR04/issues/
 
 [total-downloads]: https://img.shields.io/packagecontrol/dt/enjoyneering/HCSR04.svg
-[downloads]:        https://api.github.com/repos/enjoyneering/HCSR04/releases/1
+[downloads]:        https://api.github.com/repos/enjoyneering/HCSR04/
 
 [![total-downloads][]][downloads]
