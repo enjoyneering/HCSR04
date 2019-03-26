@@ -30,7 +30,7 @@ Tested on:
 [version]:       https://img.shields.io/badge/Version-1.2.0-green.svg
 [stars]:         https://img.shields.io/github/stars/enjoyneering/HCSR04.svg
 [stargazers]:    https://github.com/enjoyneering/HCSR04/stargazers
-[hit-count]:     http://hits.dwyl.io/enjoyneering/HCSR04/badges.svg?style=plastic
+[hit-count]:     http://hits.dwyl.io/enjoyneering/HCSR04/badges.svg
 [count]:         http://hits.dwyl.io/enjoyneering/HCSR04/badges
 [github-issues]: https://img.shields.io/github/issues/enjoyneering/HCSR04.svg
 [issues]:        https://github.com/enjoyneering/HCSR04/issues/
