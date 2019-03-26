@@ -31,4 +31,4 @@ Tested on:
 [stars]:         https://img.shields.io/github/stars/enjoyneering/HCSR04.svg
 [stargazers]:    https://github.com/enjoyneering/HCSR04/stargazers
 [GitHub issues]: https://img.shields.io/github/issues/enjoyneering/HCSR04.svg
-[issues]:        https://github/enjoyneering/HCSR04/issues/
+[issues]:        https://github.com/enjoyneering/HCSR04/issues/
