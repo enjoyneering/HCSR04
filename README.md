@@ -1,4 +1,4 @@
-[![license-badge][]][license] ![version] [![stars][]][stargazers]
+[![license-badge][]][license] ![version] [![stars][]][stargazers]  [![GitHub issues][]][issues]
 
 # HС-SR04
 This is an Arduino library for HC-SR04, HC-SRF05, DYP-ME007, BLJ-ME007Y, SEN136B5B, US-100 (PWM output mode), JSN-SR04T (PWM output mode) ultrasonic ranging sensor
@@ -25,8 +25,10 @@ Tested on:
 
 ** Sensor returns 38000 if OUT OF RANGE
 
+[license-badge]: https://img.shields.io/badge/License-GPLv3-blue.svg
 [license]:       https://choosealicense.com/licenses/gpl-3.0/
-[license-badge]: https://img.shields.io/aur/license/yaourt.svg
 [version]:       https://img.shields.io/badge/Version-1.2.0-green.svg
 [stars]:         https://img.shields.io/github/stars/enjoyneering/HCSR04.svg
 [stargazers]:    https://github.com/enjoyneering/HCSR04/stargazers
+[GitHub issues]: https://img.shields.io/github/issues/enjoyneering/HCSR04.svg
+[issues]:        https://GitHub.com/enjoyneering/HCSR04/issues/
