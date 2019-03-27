@@ -23,7 +23,7 @@ Tested on:
 - Arduino ESP8266
 - Arduino STM32
 
-** Sensor returns 38000 if OUT OF RANGE
+**Library returns 38000 if OUT OF RANGE
 
 [license-badge]: https://img.shields.io/badge/License-GPLv3-blue.svg
 [license]:       https://choosealicense.com/licenses/gpl-3.0/
