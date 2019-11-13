@@ -63,7 +63,7 @@ void loop()
 
 
   distance = ultrasonicSensor.getMedianFilterDistance(); //pass 3 measurements through median filter, better result on moving obstacles
-  
+
   if (distance != HCSR04_OUT_OF_RANGE)
   {
     Serial.print(distance, 1);
@@ -73,6 +73,8 @@ void loop()
   {
     Serial.println(F("out of range, filtered"));
   }
+
+  ultrasonicSensor.setTemperature(18.5);                 //set air temperature to compensate change in speed of sound
 
   delay(250);                                            //serial refresh rate
 }
