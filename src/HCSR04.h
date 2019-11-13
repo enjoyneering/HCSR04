@@ -27,7 +27,6 @@
   ATtiny Core           - https://github.com/SpenceKonde/ATTinyCore
   ESP32 Core            - https://github.com/espressif/arduino-esp32
   ESP8266 Core          - https://github.com/esp8266/Arduino
-  ESP8266 I2C lib fixed - https://github.com/enjoyneering/ESP8266-I2C-Driver
   STM32 Core            - https://github.com/rogerclarkmelbourne/Arduino_STM32
 
   GNU GPL license, all text above must be included in any redistribution, see link below for details:
@@ -42,8 +41,8 @@
 The arduino toolchain includes library headers before it includes your sketch.
 Unfortunately, you cannot #define something in a sketch & get it in the library.
 */
-//#define HCSR04_DISABLE_INTERRUPTS
-//#define HCSR04_ECHO_CANCELLATION
+//#define HCSR04_DISABLE_INTERRUPTS //uncomment to disable interrupts during measurement
+//#define HCSR04_ECHO_CANCELLATION  //uncoment to disable echo cancellation after measurement
 
 #if defined(ARDUINO) && ((ARDUINO) >= 100) //arduino core v1.0 or later
 #include <Arduino.h>
@@ -75,6 +74,7 @@ class HCSR04
   void     begin(void);
   float    getDistance(void);
   float    getMedianFilterDistance(void);
+  void     setTemperature(float temperature);
 
  private:
   uint8_t  _triggerPin;
