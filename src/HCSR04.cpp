@@ -27,7 +27,6 @@
   ATtiny Core           - https://github.com/SpenceKonde/ATTinyCore
   ESP32 Core            - https://github.com/espressif/arduino-esp32
   ESP8266 Core          - https://github.com/esp8266/Arduino
-  ESP8266 I2C lib fixed - https://github.com/enjoyneering/ESP8266-I2C-Driver
   STM32 Core            - https://github.com/rogerclarkmelbourne/Arduino_STM32
 
   GNU GPL license, all text above must be included in any redistribution, see link below for details:
@@ -124,6 +123,18 @@ float HCSR04::getMedianFilterDistance(void)
   }
 
   return calcDistance(middle);                                  
+}
+
+/**************************************************************************/
+/*
+    setTemperature()
+
+    Set air temperature to compensate change in speed of sound
+*/
+/**************************************************************************/
+void HCSR04::setTemperature(float temperature)
+{
+  _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature));
 }
 
 /**************************************************************************/
