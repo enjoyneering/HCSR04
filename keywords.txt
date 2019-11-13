@@ -13,6 +13,7 @@
 begin	KEYWORD2
 getDistance	KEYWORD2
 getMedianFilterDistance	KEYWORD2
+setTemperature	KEYWORD2
 
 #######################################
 # Instances	(KEYWORD2)
