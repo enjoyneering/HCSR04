@@ -74,7 +74,7 @@ class HCSR04
   void     begin(void);
   float    getDistance(void);
   float    getMedianFilterDistance(void);
-  void     setTemperature(float temperature);
+  void     setTemperature(int16_t temperature);
 
  private:
   uint8_t  _triggerPin;
