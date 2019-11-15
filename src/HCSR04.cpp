@@ -132,7 +132,7 @@ float HCSR04::getMedianFilterDistance(void)
     Set air temperature to compensate change in speed of sound
 */
 /**************************************************************************/
-void HCSR04::setTemperature(float temperature)
+void HCSR04::setTemperature(int16_t temperature)
 {
   _oneCentimetreRoundTripTime = calcOneCentimetreRoundTripTime(calcSoundSpeed(temperature));
 }
