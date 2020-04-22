@@ -41,7 +41,7 @@ distance    - maximun measuring distance, in cm
 *most boards has 10-12kOhm pullup-up resistor on GPIO2/D4 & GPIO0/D3
  ESP8266 fails to BOOT/FLASH if D3 or D4 is LOW, use with with caution!
 */
-HCSR04 ultrasonicSensor(D4, D3, 20, 300);
+HCSR04 ultrasonicSensor(D4, D3, 20, 300); //ESP8266 fails to BOOT/FLASH if HCSR04 pulls D3 or D4 pin LOW
 
 void setup()
 {
