@@ -35,8 +35,8 @@ HCSR04(trigger, echo, temperature, distance)
 
 trigger     - trigger pin*
 echo        - echo pin*
-temperature - ambient temperature, in C
-distance    - maximun measuring distance, in cm
+temperature - ambient temperature, in degrees Celsius
+distance    - maximum measuring distance, in centimeters
 
 *if GPIO2/D4 or GPIO0/D3 is used for trigger or echo pin, apply an external
  25kOhm pullup-down resistor otherwise reset & reset button may not work
