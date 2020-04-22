@@ -35,8 +35,8 @@ HCSR04(trigger, echo, temperature, distance)
 
 trigger     - trigger pin*
 echo        - echo pin*
-temperature - ambient temperature, in C
-distance    - maximun measuring distance, in cm
+temperature - ambient temperature, in degrees Celsius
+distance    - maximum measuring distance, in centimeters
 
 *most boards has 10-12kOhm pullup-up resistor on GPIO2/D4 & GPIO0/D3
  ESP8266 fails to BOOT/FLASH if D3 or D4 is LOW, use with with caution!
